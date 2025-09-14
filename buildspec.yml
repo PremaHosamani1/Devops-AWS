@@ -1,0 +1,34 @@
+version: 0.2
+
+env:
+  variables:
+    TF_BUCKET: "my-terraform-state"
+    TF_LOCK_TABLE: "terraform-lock"
+    AWS_DEFAULT_REGION: "us-east-1"
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.x
+    commands:
+      - echo Installing Terraform...
+      - curl -LO https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_amd64.zip
+      - unzip terraform_1.5.7_linux_amd64.zip
+      - mv terraform /usr/local/bin/
+      - terraform --version
+
+  pre_build:
+    commands:
+      - echo "Terraform Init"
+      - terraform init
+
+  build:
+    commands:
+      - echo "Terraform Plan"
+      - terraform plan -out=tfplan
+      - echo "Terraform Apply"
+      - terraform apply -auto-approve tfplan
+
+artifacts:
+  files:
+    - '**/*'
