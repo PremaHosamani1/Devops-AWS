@@ -4,7 +4,7 @@ env:
   variables:
     TF_BUCKET: "my-terraform-state"
     TF_LOCK_TABLE: "terraform-lock"
-    AWS_DEFAULT_REGION: "us-east-1"
+    AWS_DEFAULT_REGION: "eu-north-1"
 
 phases:
   install:
