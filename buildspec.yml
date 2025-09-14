@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing Terraform...
+      - curl -LO https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_amd64.zip
+      - unzip terraform_1.5.7_linux_amd64.zip
+      - mv terraform /usr/local/bin/
+      - terraform --version
+
+  pre_build:
+    commands:
+      - echo Formatting Terraform files...
+      - terraform fmt -recursive
+      - echo Initializing Terraform...
+      - terraform init
+
+  build:
+    commands:
+      - terraform plan -out=tfplan
+      - terraform apply -auto-approve
+
+artifacts:
+  files:
+    - '**/*'
