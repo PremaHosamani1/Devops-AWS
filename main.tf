@@ -4,7 +4,7 @@ resource "aws_s3_bucket" "my_bucket" {
   force_destroy = true
   tags = {
     Environment = "prod"
-    Name        = "My bucket"
+    Name        = "My bucket1"
   }
 
 }
